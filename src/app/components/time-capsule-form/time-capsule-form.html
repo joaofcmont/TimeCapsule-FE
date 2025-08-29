@@ -1,0 +1,63 @@
+<div class="time-capsule-form">
+    <h2>Create New Time Capsule</h2>
+    
+    <div *ngIf="loading" class="loading">Creating your time capsule...</div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+    
+    <form [formGroup]="timeCapsuleForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+      <div class="form-group">
+        <label for="name">Time Capsule Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name"
+          class="form-control"
+          [class.invalid]="name?.invalid && name?.touched"
+          placeholder="Give your time capsule a meaningful name">
+        
+        <div *ngIf="name?.invalid && name?.touched" class="error-message">
+          <div *ngIf="name?.errors?.['required']">Name is required</div>
+          <div *ngIf="name?.errors?.['minlength']">Name must be at least 1 character long</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="messages">Your Message to the Future *</label>
+        <textarea 
+          id="messages" 
+          formControlName="messages"
+          class="form-control"
+          [class.invalid]="messages?.invalid && messages?.touched"
+          placeholder="Write your message, thoughts, dreams, or memories to preserve for the future..."
+          rows="8">
+        </textarea>
+        
+        <div *ngIf="messages?.invalid && messages?.touched" class="error-message">
+          <div *ngIf="messages?.errors?.['required']">Messages are required</div>
+          <div *ngIf="messages?.errors?.['minlength']">Messages must be at least 1 character long</div>
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="!timeCapsuleForm.valid || loading">
+          Create Time Capsule
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  
+    <div class="info-box" *ngIf="!loading">
+      <h3>📝 Remember</h3>
+      <p>Once created, your time capsule cannot be edited. Make sure your message is exactly how you want to preserve it for the future!</p>
+    </div>
+  </div>

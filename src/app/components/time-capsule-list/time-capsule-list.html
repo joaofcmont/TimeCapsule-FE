@@ -1,0 +1,42 @@
+<div class="time-capsule-list">
+    <h2>Time Capsules</h2>
+    
+    <div *ngIf="loading" class="loading">Loading time capsules...</div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+    
+    <div *ngIf="!loading && timeCapsules.length === 0" class="empty">
+      No time capsules found. <a routerLink="/create">Create one!</a>
+    </div>
+    
+    <div class="capsule-grid" *ngIf="!loading && timeCapsules.length > 0">
+      <div *ngFor="let capsule of timeCapsules" class="capsule-card">
+        <div class="capsule-header">
+          <h3>{{ capsule.name }}</h3>
+          <span class="capsule-id">#{{ capsule.id }}</span>
+        </div>
+        
+        <div class="capsule-content">
+          <p>{{ capsule.messages | slice:0:100 }}
+            <span *ngIf="capsule.messages.length > 100">...</span>
+          </p>
+        </div>
+        
+        <div class="capsule-actions">
+          <button 
+            class="btn btn-primary" 
+            [routerLink]="['/capsule', capsule.id]">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="floating-action">
+      <button 
+        class="btn btn-primary btn-floating" 
+        routerLink="/create">
+        + New Capsule
+      </button>
+    </div>
+  </div>

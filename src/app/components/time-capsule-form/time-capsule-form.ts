@@ -77,6 +77,9 @@ export class TimeCapsuleForm implements OnInit{
     }
   }
   onCancel(): void {
+    this.timeCapsuleForm.reset();
+    this.timeCapsuleForm.markAsUntouched();
+    this.timeCapsuleForm.markAsPristine();
     this.router.navigate(['/time-capsule']);
   }
   get name() { return this.timeCapsuleForm.get('name'); }

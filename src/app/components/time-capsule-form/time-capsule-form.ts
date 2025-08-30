@@ -27,7 +27,8 @@ export class TimeCapsuleForm implements OnInit{
   ){
     this.timeCapsuleForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(1)]],
-      messages: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]]
+      messages: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
+      date: ['', [Validators.required]]
     })
   }
 
@@ -46,7 +47,8 @@ export class TimeCapsuleForm implements OnInit{
         next: (timeCapsule) => {
           this.timeCapsuleForm.patchValue({
             name: timeCapsule.name,
-            messages: timeCapsule.messages
+            messages: timeCapsule.messages,
+            date: timeCapsule.date
           });
           this.loading = false;
         },
@@ -82,7 +84,14 @@ export class TimeCapsuleForm implements OnInit{
     this.timeCapsuleForm.markAsPristine();
     this.router.navigate(['/time-capsule']);
   }
+
+  getTodayDate(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
   get name() { return this.timeCapsuleForm.get('name'); }
   get messages() { return this.timeCapsuleForm.get('messages'); }
+  get date() { return this.timeCapsuleForm.get('date'); }
+
 }
 

@@ -68,8 +68,11 @@ export class TimeCapsuleForm implements OnInit{
 
       this.timeCapsuleService.createTimeCapsule(timeCapsule).subscribe({
         next: () => {
+          this.loading = false;
+          setTimeout(() => {
           this.router.navigate(['/time-capsule'])
-        },
+        }, 500);
+      },
         error: (error) => {
           console.error('Error creating time capsule:', error);
           this.error = 'Failed to create time capsule';
